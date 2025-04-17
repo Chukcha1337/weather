@@ -1,0 +1,80 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.liquibase.gradle' version '2.0.4'
+}
+
+group = 'com.chuckcha'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    springVersion = '6.1.14'
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // Spring MVC
+    implementation "org.springframework:spring-core:$springVersion"
+    implementation "org.springframework:spring-context:$springVersion"
+    implementation "org.springframework:spring-web:$springVersion"
+    implementation "org.springframework:spring-webmvc:$springVersion"
+
+    // Thymeleaf
+    implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
+    implementation 'org.thymeleaf:thymeleaf-spring6:3.1.2.RELEASE'
+
+    // Servlet API
+    implementation 'jakarta.servlet:jakarta.servlet-api:6.1.0'
+
+    // Логирование
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+
+    // Hibernate / JPA
+    implementation "org.springframework:spring-orm:$springVersion"
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    implementation 'org.hibernate.orm:hibernate-core:6.4.4.Final'
+
+    // validation
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+
+    // Hikari CP
+    implementation 'com.zaxxer:HikariCP:6.3.0'
+
+// PostgreSQL
+    runtimeOnly 'org.postgresql:postgresql:42.7.3'
+
+// H2 для тестов
+    testImplementation 'com.h2database:h2:2.2.224'
+
+// Liquibase
+    implementation 'org.liquibase:liquibase-core:4.27.0'
+    implementation 'org.yaml:snakeyaml:2.2'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+// Работа с внешними API
+    implementation "org.springframework:spring-webflux:$springVersion"
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+
+    // BCrypt
+    implementation 'org.springframework.security:spring-security-crypto:6.2.1'
+
+    implementation 'org.springframework.data:spring-data-jpa:3.1.5'
+
+// Интеграционные тесты
+    testImplementation 'org.springframework:spring-test:6.1.4'
+}
+
+test {
+    useJUnitPlatform()
+}
