@@ -3,7 +3,6 @@ package config;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
 import liquibase.integration.spring.SpringLiquibase;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,8 +27,7 @@ import javax.sql.DataSource;
 @ComponentScan({
         "com.chuckcha.weatherapp.service",
         "com.chuckcha.weatherapp.dto",
-        "com.chuckcha.weatherapp.repository",
-        "com.chuckcha.weatherapp.api"
+        "com.chuckcha.weatherapp.repository"
 })
 @PropertySource("classpath:application.test.properties")
 public class TestConfig {
@@ -81,7 +79,7 @@ public class TestConfig {
 
     @Bean
     public RestTemplate restTemplate() {
-        return Mockito.mock(RestTemplate.class);
+        return new RestTemplate();
     }
 }
 
