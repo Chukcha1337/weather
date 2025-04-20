@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@Builder
 @EqualsAndHashCode
 @Table(name = "locations", schema = "public")
 public class Location {

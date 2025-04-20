@@ -1,17 +1,15 @@
 package com.chuckcha.weatherapp.repository;
 
 import com.chuckcha.weatherapp.model.Session;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-@Repository
-public class SessionRepository extends BaseRepository {
+import java.util.Optional;
+import java.util.UUID;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+public interface SessionRepository extends JpaRepository<Session, UUID> {
 
-    public void save(Session session) {
-        entityManager.persist(session);
-    }
+    @Query("SELECT s FROM Session s JOIN FETCH s.user WHERE s.id = :id")
+    Optional<Session> findSessionWithUserById(@Param("id") UUID uuid);
 }

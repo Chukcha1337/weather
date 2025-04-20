@@ -1,7 +1,6 @@
 package com.chuckcha.weatherapp.service;
 
-import com.chuckcha.weatherapp.dto.UserAuthorizationDto;
-import com.chuckcha.weatherapp.dto.UserRegistrationDto;
+import com.chuckcha.weatherapp.dto.user.UserAuthorizationDto;
 import com.chuckcha.weatherapp.exception.InvalidPasswordException;
 import com.chuckcha.weatherapp.exception.UserNotFoundException;
 import com.chuckcha.weatherapp.model.Session;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -34,7 +32,7 @@ public class AuthorizationService {
     @Transactional
     public UUID authorizeUser(UserAuthorizationDto userAuthorizationDto) {
         User user = userRepository.findByLogin(userAuthorizationDto.getLogin())
-                .orElseThrow(() -> new UserNotFoundException(userAuthorizationDto.getLogin()));
+                .orElseThrow(() -> new UserNotFoundException("There is no such user '%s'".formatted(userAuthorizationDto.getLogin())));
         if (encoder.matches(userAuthorizationDto.getPassword(), user.getPassword())) {
             UUID sessionId = UUID.randomUUID();
             Session session = Session.builder()

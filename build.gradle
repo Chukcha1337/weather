@@ -69,10 +69,15 @@ dependencies {
     // BCrypt
     implementation 'org.springframework.security:spring-security-crypto:6.2.1'
 
-    implementation 'org.springframework.data:spring-data-jpa:3.1.5'
+    implementation 'org.springframework.data:spring-data-jpa:3.2.5'
+
+    // Для корректной работы Spring Data JPA в WAR (особенно при deploy в Tomcat)
+    annotationProcessor "org.springframework:spring-context-indexer:$springVersion"
 
 // Интеграционные тесты
     testImplementation 'org.springframework:spring-test:6.1.4'
+    testImplementation 'org.mockito:mockito-core:5.12.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
 }
 
 test {

@@ -1,17 +1,16 @@
-package com.chuckcha.weatherapp.config;
+package config;
 
-import com.chuckcha.weatherapp.config.interceptor.SessionInterceptor;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
 import liquibase.integration.spring.SpringLiquibase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -20,56 +19,26 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.spring6.SpringTemplateEngine;
-import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
 
 @Configuration
-@EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.chuckcha.weatherapp.repository")
-@ComponentScan("com.chuckcha.weatherapp")
-@PropertySource("classpath:application.properties")
-public class ApplicationConfig implements WebMvcConfigurer {
+@ComponentScan({
+        "com.chuckcha.weatherapp.service",
+        "com.chuckcha.weatherapp.dto",
+        "com.chuckcha.weatherapp.repository",
+        "com.chuckcha.weatherapp.api"
+})
+@PropertySource("classpath:application.test.properties")
+public class TestConfig {
 
-    private final ApplicationContext applicationContext;
     private final Environment environment;
-    private static final Logger log = LoggerFactory.getLogger(ApplicationConfig.class);
 
     @Autowired
-    public ApplicationConfig(ApplicationContext applicationContext, Environment environment) {
-        this.applicationContext = applicationContext;
+    public TestConfig(Environment environment) {
         this.environment = environment;
-    }
-
-    @Bean
-    public SpringResourceTemplateResolver templateResolver() {
-        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/views/");
-        templateResolver.setSuffix(".html");
-        return templateResolver;
-    }
-
-    @Bean
-    public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.setEnableSpringELCompiler(true);
-        return templateEngine;
-    }
-
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        registry.viewResolver(resolver);
     }
 
     @Bean
@@ -79,7 +48,6 @@ public class ApplicationConfig implements WebMvcConfigurer {
         dataSource.setJdbcUrl(environment.getProperty("db.url"));
         dataSource.setUsername(environment.getProperty("db.username"));
         dataSource.setPassword(environment.getProperty("db.password"));
-        log.info("Connecting to DB at URL: {}", environment.getProperty("db.url"));
         return dataSource;
     }
 
@@ -111,14 +79,9 @@ public class ApplicationConfig implements WebMvcConfigurer {
         return new JpaTransactionManager(emf);
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(applicationContext.getBean(SessionInterceptor.class))
-                .excludePathPatterns("/authorization", "/registration", "/logout", "/css/**", "/js/**", "/images/**");
-    }
-
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate();
+        return Mockito.mock(RestTemplate.class);
     }
 }
+

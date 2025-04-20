@@ -1,11 +1,9 @@
 package com.chuckcha.weatherapp.service;
 
-import com.chuckcha.weatherapp.dto.UserRegistrationDto;
+import com.chuckcha.weatherapp.dto.user.UserRegistrationDto;
 import com.chuckcha.weatherapp.exception.DuplicateLoginException;
 import com.chuckcha.weatherapp.model.User;
 import com.chuckcha.weatherapp.repository.UserRepository;
-import jakarta.persistence.PersistenceException;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,13 +26,10 @@ public class RegistrationService {
         String login = userRegistrationDto.getLogin();
         String encodedPassword = encoder.encode(userRegistrationDto.getPassword());
         User user = User.builder().login(login).password(encodedPassword).build();
-        try {
+        if (userRepository.existsByLogin(login)) {
+            throw new DuplicateLoginException("Login %s already exists".formatted(login));
+        } else {
             userRepository.save(user);
-        } catch (PersistenceException e) {
-            if (e.getCause() instanceof ConstraintViolationException) {
-                throw new DuplicateLoginException("Login %s already exists".formatted(login));
-            }
-            throw e;
         }
     }
 }

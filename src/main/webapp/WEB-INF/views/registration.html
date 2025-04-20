@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.com">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>Weather | Registration</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="icon" type="image/png" href="/images/weather.png">
 	<style>
         .error-message {
             color: red;
             font-size: 12px;
         }
 	</style>
+	<style>
+        .transparent-card {
+            background-color: rgba(255, 255, 255, 0.4); /* немного прозрачнее */
+            border: 2px solid rgba(13, 110, 253, 0.6); /* полупрозрачная синяя граница */
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* лёгкая тень */
+        }
+	</style>
 </head>
-<body>
+<body style="margin:0; height:100vh; background: linear-gradient(to bottom right, #7ddeea, #ffffff); background-size: cover; background-attachment: fixed;">
 <div class="d-flex justify-content-center align-items-center vh-100">
-	<div class="card p-4 w-100" style="max-width: 28rem;">
+	<div class="card p-4 w-100 transparent-card" style="max-width: 28rem;">
 		<form th:action="@{/registration}" th:object="${userRegistrationDto}" method="post">
 			<h1 class="mb-3 text-center">Weather</h1>
 			<!--			<img class="mx-auto d-block mb-3 img-fluid" th:src="@{/images/weather.png}" alt="Weather icon" />-->
