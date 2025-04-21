@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navbar" class="navbar" style="background: linear-gradient(to right, #15c9e8, #f3d0d0);">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/index">
+			<img src="/images/weather.png" alt="Logo" class="img-fluid" style="height: 40px;">
+			Weather Tracker
+		</a>
+		<div class="d-flex align-items-center">
+			<span class="navbar-text me-3" th:text="${user.login}">User</span>
+			<form th:action="@{/logout}" method="post">
+				<button type="submit" class="btn btn-outline-danger">Sign out</button>
+			</form>
+		</div>
+	</div>
+</nav>
+</body>
+</html>

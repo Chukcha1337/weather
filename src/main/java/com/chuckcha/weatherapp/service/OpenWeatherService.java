@@ -1,4 +1,4 @@
-package com.chuckcha.weatherapp.api;
+package com.chuckcha.weatherapp.service;
 
 import com.chuckcha.weatherapp.dto.location.LocationFromDatabaseDto;
 import com.chuckcha.weatherapp.dto.weather.OpenWeatherLocationsResponseDto;
@@ -10,12 +10,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Component
-public class OpenWeatherClient {
+public class OpenWeatherService {
 
     private final RestTemplate restTemplate;
     private final String apiKey;
 
-    public OpenWeatherClient(RestTemplate restTemplate, @Value("${openweather.api.key}") String apiKey) {
+    public OpenWeatherService(RestTemplate restTemplate, @Value("${openweather.api.key}") String apiKey) {
         this.restTemplate = restTemplate;
         this.apiKey = apiKey;
     }

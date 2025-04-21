@@ -3,8 +3,8 @@ package service;
 import com.chuckcha.weatherapp.dto.user.UserAuthorizationDto;
 import com.chuckcha.weatherapp.dto.user.UserRegistrationDto;
 import com.chuckcha.weatherapp.exception.SessionTimeoutException;
-import com.chuckcha.weatherapp.model.Session;
-import com.chuckcha.weatherapp.model.User;
+import com.chuckcha.weatherapp.entity.Session;
+import com.chuckcha.weatherapp.entity.User;
 import com.chuckcha.weatherapp.repository.SessionRepository;
 import com.chuckcha.weatherapp.repository.UserRepository;
 import com.chuckcha.weatherapp.service.AuthorizationService;
@@ -12,7 +12,6 @@ import com.chuckcha.weatherapp.service.RegistrationService;
 import com.chuckcha.weatherapp.service.SessionService;
 import config.TestConfig;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +20,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;

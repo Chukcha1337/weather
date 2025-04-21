@@ -2,7 +2,7 @@ package service;
 
 import com.chuckcha.weatherapp.dto.user.UserRegistrationDto;
 import com.chuckcha.weatherapp.exception.DuplicateLoginException;
-import com.chuckcha.weatherapp.model.User;
+import com.chuckcha.weatherapp.entity.User;
 import com.chuckcha.weatherapp.repository.UserRepository;
 import com.chuckcha.weatherapp.service.RegistrationService;
 import config.TestConfig;

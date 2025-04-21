@@ -1,6 +1,6 @@
 package com.chuckcha.weatherapp.repository;
 
-import com.chuckcha.weatherapp.model.User;
+import com.chuckcha.weatherapp.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
