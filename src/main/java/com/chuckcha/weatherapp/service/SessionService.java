@@ -4,7 +4,7 @@ import com.chuckcha.weatherapp.dto.user.UserLoginDto;
 import com.chuckcha.weatherapp.exception.InvalidSessionIdException;
 import com.chuckcha.weatherapp.exception.SessionNotFoundException;
 import com.chuckcha.weatherapp.exception.SessionTimeoutException;
-import com.chuckcha.weatherapp.entity.Session;
+import com.chuckcha.weatherapp.model.Session;
 import com.chuckcha.weatherapp.repository.SessionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

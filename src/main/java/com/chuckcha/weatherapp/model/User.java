@@ -1,4 +1,4 @@
-package com.chuckcha.weatherapp.entity;
+package com.chuckcha.weatherapp.model;
 
 import jakarta.persistence.*;
 import lombok.*;

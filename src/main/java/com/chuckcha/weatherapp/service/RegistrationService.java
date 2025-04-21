@@ -2,7 +2,7 @@ package com.chuckcha.weatherapp.service;
 
 import com.chuckcha.weatherapp.dto.user.UserRegistrationDto;
 import com.chuckcha.weatherapp.exception.DuplicateLoginException;
-import com.chuckcha.weatherapp.entity.User;
+import com.chuckcha.weatherapp.model.User;
 import com.chuckcha.weatherapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
