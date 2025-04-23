@@ -12,9 +12,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "user")
 @Builder
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "user")
 @Table(name = "sessions", schema = "public")
 public class Session {
 

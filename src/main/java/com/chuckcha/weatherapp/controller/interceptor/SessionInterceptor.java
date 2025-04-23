@@ -1,4 +1,4 @@
-package com.chuckcha.weatherapp.config.interceptor;
+package com.chuckcha.weatherapp.controller.interceptor;
 
 import com.chuckcha.weatherapp.dto.user.UserLoginDto;
 import com.chuckcha.weatherapp.exception.SessionNotFoundException;
@@ -25,7 +25,7 @@ public class SessionInterceptor implements HandlerInterceptor {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             String sessionIdString = Arrays.stream(cookies)
-                    .filter(predicate -> predicate.getName().equals("session_id"))
+                    .filter(cookie -> cookie.getName().equals("session_id"))
                     .map(Cookie::getValue)
                     .findFirst()
                     .orElseThrow(() -> new SessionNotFoundException("Invalid session ID"));

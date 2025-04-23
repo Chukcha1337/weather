@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface LocationRepository extends JpaRepository<Location, Integer> {
 
     @Query("SELECT l FROM Location l WHERE l.user.id = :userId")
-    Optional<List<Location>> findAllByUserId(@Param("userId") Integer userId);
+    List<Location> findAllByUserId(@Param("userId") Integer userId);
 }

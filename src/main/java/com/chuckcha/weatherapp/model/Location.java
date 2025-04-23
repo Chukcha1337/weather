@@ -10,17 +10,17 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "user")
 @Builder
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "user")
 @Table(name = "locations", schema = "public")
 public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)

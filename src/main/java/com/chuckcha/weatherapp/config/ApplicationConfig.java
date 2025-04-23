@@ -1,11 +1,10 @@
 package com.chuckcha.weatherapp.config;
 
-import com.chuckcha.weatherapp.config.interceptor.SessionInterceptor;
+import com.chuckcha.weatherapp.controller.interceptor.SessionInterceptor;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
 import liquibase.integration.spring.SpringLiquibase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
@@ -15,6 +14,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -29,8 +29,10 @@ import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
 
+@Slf4j
 @Configuration
 @EnableWebMvc
+@EnableScheduling
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.chuckcha.weatherapp.repository")
 @ComponentScan("com.chuckcha.weatherapp")
@@ -39,7 +41,6 @@ public class ApplicationConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
     private final Environment environment;
-    private static final Logger log = LoggerFactory.getLogger(ApplicationConfig.class);
 
     @Autowired
     public ApplicationConfig(ApplicationContext applicationContext, Environment environment) {

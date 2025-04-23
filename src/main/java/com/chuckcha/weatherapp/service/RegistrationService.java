@@ -24,12 +24,11 @@ public class RegistrationService {
     @Transactional
     public void save(UserRegistrationDto userRegistrationDto) {
         String login = userRegistrationDto.getLogin();
-        String encodedPassword = encoder.encode(userRegistrationDto.getPassword());
-        User user = User.builder().login(login).password(encodedPassword).build();
         if (userRepository.existsByLogin(login)) {
             throw new DuplicateLoginException("Login %s already exists".formatted(login));
-        } else {
-            userRepository.save(user);
         }
+        String encodedPassword = encoder.encode(userRegistrationDto.getPassword());
+        User user = User.builder().login(login).password(encodedPassword).build();
+        userRepository.save(user);
     }
 }

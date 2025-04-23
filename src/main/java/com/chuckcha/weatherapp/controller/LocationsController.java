@@ -1,10 +1,10 @@
 package com.chuckcha.weatherapp.controller;
 
 import com.chuckcha.weatherapp.dto.location.CitySearchDto;
-import com.chuckcha.weatherapp.dto.location.LocationFromDatabaseDto;
+import com.chuckcha.weatherapp.dto.location.LocationResponseDto;
 import com.chuckcha.weatherapp.dto.weather.OpenWeatherWeatherResponseDto;
 import com.chuckcha.weatherapp.service.OpenWeatherService;
-import com.chuckcha.weatherapp.dto.location.LocationToDatabaseDto;
+import com.chuckcha.weatherapp.dto.location.LocationRequestDto;
 import com.chuckcha.weatherapp.dto.weather.OpenWeatherLocationsResponseDto;
 import com.chuckcha.weatherapp.dto.user.UserLoginDto;
 import com.chuckcha.weatherapp.service.LocationService;
@@ -50,7 +50,7 @@ public class LocationsController {
     }
 
     private void getLocationsForIndex(UserLoginDto user, Model model) {
-        List<LocationFromDatabaseDto> locations = locationService.getLocationsByUserId(user.id());
+        List<LocationResponseDto> locations = locationService.getLocationsByUserId(user.id());
         if (!locations.isEmpty()) {
             List<OpenWeatherWeatherResponseDto> locationsWithWeather = openWeatherService.getWeather(locations);
             model.addAttribute("locations", locationsWithWeather);
@@ -58,7 +58,7 @@ public class LocationsController {
     }
 
     @PostMapping("/locations")
-    public String saveLocation(@ModelAttribute("location") LocationToDatabaseDto locationDto,
+    public String saveLocation(@ModelAttribute("location") LocationRequestDto locationDto,
                                @ModelAttribute("user") UserLoginDto user) {
         locationService.saveLocation(locationDto, user.id());
         return "redirect:/index";
