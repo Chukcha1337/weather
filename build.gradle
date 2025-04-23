@@ -21,7 +21,7 @@ ext {
 }
 
 war {
-    archiveFileName = 'ROOT.war'
+    archiveFileName = 'weather.war'
 }
 
 dependencies {
