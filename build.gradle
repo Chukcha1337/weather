@@ -11,8 +11,17 @@ repositories {
     mavenCentral()
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
 ext {
     springVersion = '6.1.14'
+}
+
+war {
+    archiveFileName = 'ROOT.war'
 }
 
 dependencies {
